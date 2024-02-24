@@ -69,41 +69,41 @@ border-radius: 8px;
     </form>
     <div id="result"></div>
 
-    <script>
+<script>
     document.getElementById('resultBtn').addEventListener('click', function() {
-        let totalMarks = 0; // Initialize total marks to 0
-        let feedback = "<h2>Your Choices:</h2><ul>"; // Initialize feedback message
+        let totalMarks = 0;
+        let feedback = "<h2>Your Choices:</h2><ul>";
 
         // Calculate marks for each question
         const answers = {
-            'qn1': 'hpert',
-            'qn2': 'the_wwc',
-            'qn3': 'h1',
-            'qn4': 'br',
-            'qn5': 'a_href',
-            'qn6': 'true',
-            'qn7': 'ul',
-            'qn8': 'select'
+            'qn1': {correct: 'hpert', text: 'Hyper Text Markup Language'},
+            'qn2': {correct: 'the_wwc', text: 'The World Wide Web Consortium'},
+            'qn3': {correct: 'h1', text: '&lt;h1&gt;'},
+            'qn4': {correct: 'br', text: '&lt;br&gt;'},
+            'qn5': {correct: 'a_href', text: '&lt;a href="http://www.w3schools.com"&gt;W3Schools.com&lt;/a&gt;'},
+            'qn6': {correct: 'true', text: 'True'},
+            'qn7': {correct: 'ul', text: '&lt;ul&gt;'},
+            'qn8': {correct: 'select', text: '&lt;select&gt;'}
         };
 
         Object.keys(answers).forEach(question => {
             const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
             if (selectedAnswer) {
                 // Add user's choice to feedback
-                feedback += `<li>${selectedAnswer.nextSibling.textContent}</li>`;
+                feedback += `<li>Your choice: ${selectedAnswer.nextSibling.textContent}</li>`;
                 // Check if the selected answer matches the correct answer
-                if (selectedAnswer.value === answers[question]) {
+                if (selectedAnswer.value === answers[question].correct) {
                     // If correct, add 5 marks to total
                     totalMarks += 5;
                     // Add correct feedback
                     feedback += "<span style='color: green;'>Correct</span>";
                 } else {
-                    // If wrong, add wrong feedback
-                    feedback += "<span style='color: red;'>Wrong</span>";
+                    // If wrong, add wrong feedback and display correct answer
+                    feedback += `<span style='color: red;'>Wrong. Correct answer: ${answers[question].text}</span>`;
                 }
             } else {
-                // If no answer selected, add no answer feedback
-                feedback += "<li>No answer selected</li>";
+                // If no answer selected, add no answer feedback and display correct answer
+                feedback += `<li>No answer selected. Correct answer: ${answers[question].text}</li>`;
             }
         });
 
@@ -113,7 +113,7 @@ border-radius: 8px;
         // Display total marks and feedback
         document.getElementById('result').innerHTML = `<h2>Total Marks: ${totalMarks}</h2>${feedback}`;
     });
-       //End of my Make_Up Assignment.
+   //This is end of my Make_Up Assignment.
 </script>
 </body>
 </html>
