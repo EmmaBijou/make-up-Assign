@@ -70,39 +70,50 @@ border-radius: 8px;
     <div id="result"></div>
 
     <script>
-        document.getElementById('resultBtn').addEventListener('click', function() {
-            let totalMarks = 0; 
-    
-            // Calculate marks for each question
-            const answers = {
-                'qn1': 'hpert',
-                'qn2': 'the_wwc',
-                'qn3': 'h1',
-                'qn4': 'br',
-                'qn5': 'a_href',
-                'qn6': 'true',
-                'qn7': 'ul',
-                'qn8': 'select'
-            };
-    
-            Object.keys(answers).forEach(question => {
-                const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
-                if (selectedAnswer) {
-                    if (selectedAnswer.value === answers[question]) {
-                        // If correct, add 5 marks to total
-                        totalMarks += 5;
-                    } else {
-                        // If wrong, do nothing (0 marks)
-                    }
+    document.getElementById('resultBtn').addEventListener('click', function() {
+        let totalMarks = 0; // Initialize total marks to 0
+        let feedback = "<h2>Your Choices:</h2><ul>"; // Initialize feedback message
+
+        // Calculate marks for each question
+        const answers = {
+            'qn1': 'hpert',
+            'qn2': 'the_wwc',
+            'qn3': 'h1',
+            'qn4': 'br',
+            'qn5': 'a_href',
+            'qn6': 'true',
+            'qn7': 'ul',
+            'qn8': 'select'
+        };
+
+        Object.keys(answers).forEach(question => {
+            const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+            if (selectedAnswer) {
+                // Add user's choice to feedback
+                feedback += `<li>${selectedAnswer.nextSibling.textContent}</li>`;
+                // Check if the selected answer matches the correct answer
+                if (selectedAnswer.value === answers[question]) {
+                    // If correct, add 5 marks to total
+                    totalMarks += 5;
+                    // Add correct feedback
+                    feedback += "<span style='color: green;'>Correct</span>";
                 } else {
-                    // If no answer selected, do nothing (0 marks)
+                    // If wrong, add wrong feedback
+                    feedback += "<span style='color: red;'>Wrong</span>";
                 }
-            });
-    
-            //Display total marks -->
-            document.getElementById('result').innerText = `Total Marks: ${totalMarks}`;
+            } else {
+                // If no answer selected, add no answer feedback
+                feedback += "<li>No answer selected</li>";
+            }
         });
-        //This is end of my make-up assignment Thanks Madam!
-    </script>
+
+        // Close feedback list
+        feedback += "</ul>";
+
+        // Display total marks and feedback
+        document.getElementById('result').innerHTML = `<h2>Total Marks: ${totalMarks}</h2>${feedback}`;
+    });
+       //End of my Make_Up Assignment.
+</script>
 </body>
 </html>
